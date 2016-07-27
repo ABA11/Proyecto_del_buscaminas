@@ -5,46 +5,67 @@
  */
 //Paquetes
 package tableros;
-
 /**
  *
  ** @author Andrey B & Jeycon M
  ** @date 2016-07-07 Jueves
  **/
 public class TableroMinas {
+    //Variables de la clase TableroMinas
     private String[][] minas;
     private int lados;
-
+    /**
+     * Constructor de la clase TableroMinas
+     * @param minas
+     * @param lados
+     */
     public TableroMinas(String[][] minas, int lados) {
         this.minas = minas;
         this.lados = lados;
     }
-
+    /**
+     * Métodos get para la variable Minas
+     * @return minas
+     */
     public String[][] getMinas() {
         return minas;
     }
-
+    /**
+     * Método set para la variable minas
+     * @param minas
+     */
     public void setMinas(String[][] minas) {
         this.minas = minas;
     }
-
+    /**
+     * Método get para variable lados
+     * @return lados
+     */
     public int getLados() {
         return lados;
     }
-
+    /**
+     * Método set para variavle lados
+     * @param lados
+     */
     public void setLados(int lados) {
         this.lados = lados;
     }
-    
-    
-    
-     public String[][] llenarMinas(String[][] minas, int lados){
+
+    /**
+     * Método para llenar tablero, con minas y numeros
+     * @param minas
+     * @param lados
+     * @return minas
+     */
+    public String[][] llenarMinas(String[][] minas, int lados){
          int contador = 0;
             for(int i = 0;i<lados;i++){
                for(int j = 0;j<lados;j++){
                  minas[i][j] = "[0]";
             }
         }
+        //Ciclo que elige 2 cordenadas aleatorias para colocar las minas
          while(contador<lados*2){            
            int minaAleatoria1 = (int) (Math.random()*lados);
            int minaAleatoria2 = (int) (Math.random()*lados);
@@ -53,6 +74,7 @@ public class TableroMinas {
                contador++;
            }          
          }
+        //Ciclo que me localiza una mina y me traslada hacia su derecha para coloar un numero dependientemente al que ya este
          for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j]== "[M]"){
@@ -86,12 +108,13 @@ public class TableroMinas {
                          j--;
                      }
                     }
-                     if(j>lados){
+                     if(j>=lados){
                          j--;
                      }
                  }              
              }
          }
+        //Ciclo que me localiza una mina y me traslada hacia su izquierda para coloar un numero dependientemente al que ya este
           for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j]== "[M]"){
@@ -131,6 +154,7 @@ public class TableroMinas {
                  }              
              }
          }
+        //Ciclo que me localiza una mina y me traslada hacia arriba para coloar un numero dependientemente al que ya este
               for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j]== "[M]"){
@@ -170,7 +194,7 @@ public class TableroMinas {
                  }              
              }
          }
-              
+        //Ciclo que me localiza una mina y me traslada hacia abajo para coloar un numero dependientemente al que ya este
             for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j] == "[M]"){
@@ -210,6 +234,7 @@ public class TableroMinas {
                  } 
              }
          }
+        //Ciclo que me localiza una mina y me traslada hacia el noreste para coloar un numero dependientemente al que ya este
             for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j] == "[M]"){
@@ -260,6 +285,7 @@ public class TableroMinas {
                  } 
              }
          }
+        //Ciclo que me localiza una mina y me traslada hacia el noroeste para coloar un numero dependientemente al que ya este
              for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j] == "[M]"){
@@ -310,6 +336,7 @@ public class TableroMinas {
                  } 
              }
          }
+        //Ciclo que me localiza una mina y me traslada hacia el sureste para coloar un numero dependientemente al que ya este
              for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j] == "[M]"){
@@ -360,6 +387,7 @@ public class TableroMinas {
                  } 
              }
          }
+        //Ciclo que me localiza una mina y me traslada hacia el suroeste para coloar un numero dependientemente al que ya este
              for(int i = 0; i<lados;i++){
              for(int j = 0; j<lados;j++){
                  if(minas[i][j] == "[M]"){
