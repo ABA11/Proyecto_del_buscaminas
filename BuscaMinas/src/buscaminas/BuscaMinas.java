@@ -5,21 +5,19 @@
  */
 //Paquetes
 package buscaminas;
-
 /**
- *
+ **
  ** @author Andrey B & Jeycon M
  ** @date 2016-07-07 Jueves
  **/
 public class BuscaMinas{
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       //Instancia de clase menu 
        Menu m = new Menu();
+       //Llamada de metodo
        m.menu();
-    }
-    
+    }   
 }

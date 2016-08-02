@@ -11,6 +11,15 @@ package tableros;
  ** @date 2016-07-07 Jueves
  **/
 public class TableroMinas extends Tablero{
+
+    /**
+     * Constructor heredado de la clase Tablero
+     * @param tablero
+     * @param minas
+     * @param lados
+     * @param x
+     * @param y
+     **/
     public TableroMinas(String[][] tablero, String[][] minas, int lados, int x, int y) {
         super(tablero, minas, lados, x, y);
     }
@@ -19,7 +28,7 @@ public class TableroMinas extends Tablero{
      * @param minas
      * @param lados
      * @return minas
-     */
+     **/
     public String[][] llenarMinas(String[][] minas, int lados){
          int contador = 0;
             for(int i = 0;i<lados;i++){
