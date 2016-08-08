@@ -11,7 +11,6 @@ package tableros;
  ** @date 2016-07-07 Jueves
  **/
 public class TableroMinas extends Tablero{
-
     /**
      * Constructor heredado de la clase Tablero
      * @param tablero

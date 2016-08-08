@@ -7,7 +7,6 @@
 package tableros;
 //Importes
 import javax.swing.JOptionPane;
-//impo
 /**
  **
  ** @author Andrey B & Jeycon M
@@ -133,7 +132,6 @@ public class Tablero extends Object{
                 tablero[x][y] = minas[x][y];
                 this.ceroA(minas, x, y, tablero, lados);
                 this.ceroB(minas, x, y, tablero, lados);
-              
                 y++;
               } 
               if(y<=lados-1){
@@ -155,7 +153,6 @@ public class Tablero extends Object{
                 tablero[x][y] = minas[x][y];
                 this.ceroA(minas, x, y, tablero, lados);
                 this.ceroB(minas, x, y, tablero, lados);
-            
                 y--;
               } 
               if(y>=0){
@@ -177,7 +174,6 @@ public class Tablero extends Object{
                 tablero[x][y] = minas[x][y];
                 this.ceroD0(minas, x, y, tablero, lados);
                 this.ceroI0(minas, x, y, tablero, lados);
-           
                 x--;
               } 
               if(x>=0){
@@ -199,7 +195,6 @@ public class Tablero extends Object{
                 tablero[x][y] = minas[x][y];
                 this.ceroD0(minas, x, y, tablero, lados);
                 this.ceroI0(minas, x, y, tablero, lados);
-            
                 x++;
               } 
               if(x<=lados-1){
@@ -353,7 +348,6 @@ public class Tablero extends Object{
            if("[0]".equals(minas[x][y])){
                 while((x>=0)&&("[0]".equals(minas[x][y]))){ 
                 tablero[x][y] = minas[x][y];
-            
                 x--;
               } 
               if(x>=0){
@@ -373,7 +367,6 @@ public class Tablero extends Object{
            if("[0]".equals(minas[x][y])){
                 while((x<=lados-1)&&("[0]".equals(minas[x][y]))){ 
                 tablero[x][y] = minas[x][y];
-                
                 x++;
               } 
               if(x<=lados-1){
@@ -523,7 +516,7 @@ public class Tablero extends Object{
         int opc1 = 0;
         while(el==true){
             try{
-            opc1 = Integer.parseInt(JOptionPane.showInputDialog("Elija una opción\n1.Mostrar \n2.Marcar \n3.Desmarcar"));  
+            opc1 = Integer.parseInt(JOptionPane.showInputDialog("Elija una opción\n1.Mostrar \n2.Marcar \n3.Desmarcar \n4.Salir del juego"));  
             }catch(Exception e){
               JOptionPane.showMessageDialog(null,"Solo se aceptan numeros");  
             }
@@ -725,10 +718,13 @@ public class Tablero extends Object{
              tablero[x][y] = "[ ]";
             }              
           }break;
+            case 4: {
+                JOptionPane.showMessageDialog(null,"Has salido del juego");
+                jugar = false;
+            }break;
        }
     }   
 }
-
     /**
      * Método usado para gabar
      * @param lados

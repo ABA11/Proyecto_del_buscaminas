@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//Paquetes
-package buscaminas;
+package pb;
+
+import javax.swing.JOptionPane;
+
 /**
- **
- ** @author Andrey B & Jeycon M
- ** @date 2016-07-07 Jueves
- **/
-public class BuscaMinas{
+ *
+ * @author Andrey B
+ */
+public class PB {
+
     /**
      * @param args the command line arguments
-     **/
+     */
     public static void main(String[] args) {
-       //Instancia de clase menu 
-       Menu m = new Menu();
-       //Llamada de metodo
-       m.menu();
-    }   
+        // TODO code application logic here
+       System.out.println("\u00E1");
+       JOptionPane.showMessageDialog(null,"\u00E1");
+    }
+    
 }

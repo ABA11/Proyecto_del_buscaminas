@@ -24,7 +24,6 @@ public class Menu extends Object{
      * Constructor vacio
      **/
     public Menu(){}
-
     /**
      * Método menu que me instancia las clase Tablero,TableroMinas, para ejecutar correctamente el juego
      **/
@@ -45,10 +44,10 @@ public class Menu extends Object{
                   //Instancias del paquete tableros para instanciar las clases Tablero, TableroMinas
                   tableros.Tablero t = new tableros.Tablero(tablero, minas, lados, x, y);                 
                   tableros.TableroMinas tm = new tableros.TableroMinas(tablero, minas, lados, x, y);
-                  while(lados<=3){
-                  lados = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el tamaño del tablero")); 
-                  if(lados<=3){
-                      JOptionPane.showMessageDialog(null,"El tamaño ingresado no es valido, el mìnimo es 4","Error",JOptionPane.WARNING_MESSAGE);
+                  while((lados<=3)||(lados>22)){
+                  lados = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el tamaño del tablero \nEl minimo es 4 y el maximo de 22")); 
+                  if((lados<=3)||(lados>22)){
+                      JOptionPane.showMessageDialog(null,"El tamaño ingresado no es valido, el mìnimo es 4 y el maximo 22","Error",JOptionPane.WARNING_MESSAGE);
                      }
                   }
                   tablero = new String[lados][lados];
