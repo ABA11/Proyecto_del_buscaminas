@@ -126,7 +126,7 @@ public class TableroMinas extends Tablero{
          }
         //Ciclo que me localiza una mina y me traslada hacia arriba para coloar un numero dependientemente al que ya este
               for(int i = 0; i<lados;i++){
-             for(int j = 0; j<lados;j++){
+                for(int j = 0; j<lados;j++){
                  if("[M]".equals(minas[i][j])){
                        i--;
                      if(i >= 0){
@@ -157,7 +157,7 @@ public class TableroMinas extends Tablero{
                      }else if("[M]".equals(minas[i][j])){
                          i++;
                      }
-                    }
+                         }
                      if(i<0){
                          i++;
                      }
@@ -197,7 +197,7 @@ public class TableroMinas extends Tablero{
                      }else if("[M]".equals(minas[i][j])){
                          i--;
                      }
-                    }
+                          }
                      if(i>lados-1){
                          i--;
                      }
@@ -410,4 +410,12 @@ public class TableroMinas extends Tablero{
          }
         return minas;
      }
+    /**
+     * Método toString de mi clase TableroMinas, (no se utiliza)
+     * @return TableroMinas
+     **/
+    @Override
+    public String toString() {
+        return "TableroMinas{" + '}';
+    }
 }

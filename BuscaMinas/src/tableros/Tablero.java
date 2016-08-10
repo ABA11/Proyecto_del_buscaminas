@@ -347,7 +347,7 @@ public class Tablero extends Object{
     public void ceroA1(String[][] minas,int x,int y,String[][] tablero, int lados){
            if("[0]".equals(minas[x][y])){
                 while((x>=0)&&("[0]".equals(minas[x][y]))){ 
-                tablero[x][y] = minas[x][y];
+                tablero[x][y] = minas[x][y];            
                 x--;
               } 
               if(x>=0){
@@ -471,6 +471,26 @@ public class Tablero extends Object{
             }
      }
     /**
+     * Método marca que funciona por si se marcan todas las minas, que se gane
+     * @param minas
+     * @param tablero
+     * @param x
+     * @param y
+     * @param lados
+     * @return
+     */
+    public int marca(String[][] minas, String [][] tablero, int x, int y,  int lados){
+        int marca = 0;
+        for(int i = 0;i<lados;i++){
+            for(int j = 0;j<lados;j++){
+                if("[x]".equals(tablero[i][j])){
+                    marca++;
+                }
+            }
+        }
+        return marca;
+    }
+    /**
      * Método que reune los demas metodos para la ejecucion del juego y que muestra el encabezado
      * @param tablero
      * @param minas
@@ -515,26 +535,26 @@ public class Tablero extends Object{
         boolean el = true;
         int opc1 = 0;
         while(el==true){
-            try{
+            try{//Revisa si hay errores
             opc1 = Integer.parseInt(JOptionPane.showInputDialog("Elija una opción\n1.Mostrar \n2.Marcar \n3.Desmarcar \n4.Salir del juego"));  
-            }catch(Exception e){
-              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros");  
+            }catch(Exception e){//Atrapa los errores de este bloque
+              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros y que no sean decimales");  
             }
             el = false;
         }
-        switch(opc1){
-            case 1:{
+        switch(opc1){//Menu que abarca las opciones de mostrar, marcar, desmarcar y salir del juego
+            case 1:{//Caso para destapar los recuadros que contienen el tablero
          //Variables del menú       
          aciertos = 0;
-        boolean pedir = true;
+         boolean pedir = true;
         while(pedir==true){
-            try{
+            try{//Revisa si hay un error
             x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila"));
             y = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna"));         
-            }catch(Exception e){
-              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros");   
+            }catch(Exception e){//Atrapa los errores que estan es este bloque
+              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros y que no sean decimales");   
             }
-             if((x>lados-1)||(y>lados-1)){
+             if((x>lados-1)||(y>lados-1)){//Verifica si las coordenadas ingresadas concuerdan con el recuadro que se juega
                 JOptionPane.showMessageDialog(null,"Las cordenadas no coinciden \ncon el tamaño del tablero\ningrese nuevas coordenadas","Error",JOptionPane.WARNING_MESSAGE);
             }else
             if((x<=lados-1)||(y<=lados-1)){
@@ -590,6 +610,7 @@ public class Tablero extends Object{
              }
         }
         if(aciertos == lados*2){
+            //Mostramos el tablero completo
             String columnasM = " ";
             for(int i = 0;i<=lados-1;i++){
                 if(i==0){
@@ -611,8 +632,9 @@ public class Tablero extends Object{
                     System.out.println(i+" "+tableroM);
             }
             JOptionPane.showMessageDialog(null,"¡Has ganado felicidades!");
-            jugar = false;
+            jugar = false;//Condicion para salir de la partida
             ganadas++;
+            //Mostramos el registro
             JOptionPane.showMessageDialog(null,"jugadas:"+(ganadas+perdidas)+" Ganadas:"+ganadas+" Perdidas:"+perdidas);
         }
             //Ciclo que se ejecuta cuando se pierde
@@ -646,23 +668,24 @@ public class Tablero extends Object{
             tablero[x][y]="[x]";
         }
          }break;
-            case 2:{
+            case 2:{//Caso para marcar donde se crea que este la mina
             boolean pedir = true;
         while(pedir==true){
-             try{
+             try{//Verifica si hay un error 
             x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila"));
             y = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna"));         
-            }catch(Exception e){
-              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros");   
+            }catch(Exception e){//Atrapa cualquier error encontrado en este bloque
+              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros y que no sean decimales");   
             }
-             if((x>lados-1)||(y>lados-1)){
+             if((x>lados-1)||(y>lados-1)){//Verifica si las coordenadas ingresar son validas con el recuadro correspodiente
                 JOptionPane.showMessageDialog(null,"Las cordenadas no coinciden \ncon el tamaño del tablero\ningrese nuevas coordenadas","Error",JOptionPane.WARNING_MESSAGE);
             }else
             if((x<=lados-1)||(y<=lados-1)){
                 pedir = false;
             }
         }
-         while("[ ]".equals(tablero[x][y])){
+        if(lados*2 > this.marca(minas, tablero, x, y, lados)){
+            while("[ ]".equals(tablero[x][y])){
             if("[ ]".equals(tablero[x][y])){
              tablero[x][y]="[x]";
             }
@@ -696,18 +719,55 @@ public class Tablero extends Object{
             if("[M]".equals(minas[x][y])){
              tablero[x][y]="[x]";
             }  
-         }              
+         } 
+        }
+        //Este ciclo que cuenta cuantas veces tapamos una mina corectamente para ganar.
+        int mg = 0;
+        for(int i = 0; i<lados;i++){
+            for(int j = 0; j<lados; j++){
+              if(("[M]".equals(minas[i][j]))&&(tablero[i][j]=="[x]")){
+                 mg++;  
+              }                 
+            }
+        }        
+            if(mg == lados*2){
+              jugar = false;//Condicion para salir de la partida
+              //Mostramos el tablero completo
+              String columnasM = " ";
+           for(int i = 0;i<=lados-1;i++){
+                if(i==0){
+                    columnasM += "   "+i;
+                }else if(i<10){
+                    columnasM += "  "+i;
+                }else
+                    columnasM+= " "+i;
+            }
+            System.out.println(columnasM);
+            for(int i = 0;i<lados;i++){
+                String tableroM = " ";
+                for(int j = 0;j<lados;j++){
+                tableroM += minas[i][j];
+                }
+                if(i>=10){
+                    System.out.println(i+tableroM);
+                }else
+                    System.out.println(i+" "+tableroM);
+            }
+            JOptionPane.showMessageDialog(null,"¡Has Marcado todas las minas correctamente felicidades ganastes!");
+            ganadas++;
+            JOptionPane.showMessageDialog(null,"jugadas:"+(ganadas+perdidas)+" Ganadas:"+ganadas+" Perdidas:"+perdidas);       
+         }          
        }break;
-            case 3:{
+         case 3:{//Caso para desmarcar la mina ya marcada
          boolean pedir = true;
          while(pedir==true){
-             try{
+             try{//Para revisar si se encuentra un error
             x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila"));
             y = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna"));         
-            }catch(Exception e){
-              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros");   
+            }catch(Exception e){//Atrapa los errores que ocurrieron en esete bloque
+              JOptionPane.showMessageDialog(null,"Solo se aceptan numeros y que no sean decimales");   
             }
-             if((x>lados-1)||(y>lados-1)){
+             if((x>lados-1)||(y>lados-1)){//If para que verifica si las coordenadaas ingresadas se encuentra en el recuadro jugado
                 JOptionPane.showMessageDialog(null,"Las cordenadas no coinciden \ncon el tamaño del tablero\ningrese nuevas coordenadas","Error",JOptionPane.WARNING_MESSAGE);
             }else
             if((x<=lados-1)||(y<=lados-1)){
@@ -718,9 +778,9 @@ public class Tablero extends Object{
              tablero[x][y] = "[ ]";
             }              
           }break;
-            case 4: {
-                JOptionPane.showMessageDialog(null,"Has salido del juego");
-                jugar = false;
+            case 4:{//Caso para salir del juego mientras se este ejecutando
+                System.out.println("Has salido del juego");
+                jugar = false;//condicion para salir de la partida 
             }break;
        }
     }   
@@ -743,10 +803,12 @@ public class Tablero extends Object{
                 }
             }
         }
+        //Variables utilizadas para el caso 10010
         boolean jugar = true;
         int marcas = 0;
         while(jugar==true){
         int aciertos = 0;        
+        //Encabezado, lo que se mostrara cuando se ejecute este caso
         System.out.println(" =======´BUSCA MINAS´=======");
         System.out.println("jugadas:"+(ganadas+perdidas)+" Ganadas:"+ganadas+" Perdidas:"+perdidas);
         System.out.println("Minas:"+(lados*2)+" Espacios sin minas:"+marcas+"/"+((lados*lados)-(lados*2)));
@@ -772,9 +834,9 @@ public class Tablero extends Object{
         }
         boolean pedir = true;
         while(pedir==true){
-            x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila"));
-            y = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna"));
-            if((x>lados-1)||(y>lados-1)){
+            x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila"));//Donde se pide la fila
+            y = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna"));//Donde se pide la columna
+            if((x>lados-1)||(y>lados-1)){//If para verificar si las cordenadas ingresadas son validas al recuadro en el que se juega
                 JOptionPane.showMessageDialog(null,"Las cordenadas no coinciden \ncon el tamaño del tablero\ningrese nuevas coordenadas","Error",JOptionPane.WARNING_MESSAGE);
             }
             if((x<=lados-1)||(y<=lados-1)){
@@ -885,4 +947,12 @@ public class Tablero extends Object{
        }
     }   
   }
+     /**
+     * Método toString de la clase Tablero, (no se utiliza)
+     * @return Tablero,tablero,minas,lados,x,y
+     **/
+    @Override
+    public String toString() {
+        return "Tablero{" + "tablero=" + tablero + ", minas=" + minas + ", lados=" + lados + ", x=" + x + ", y=" + y + '}';
+    }
 }
